@@ -1,3 +1,4 @@
+from platform import release
 import requests
 from lxml import html
 import csv
@@ -16,17 +17,30 @@ def rogue_lite():
     tree = html.fromstring(html=res.text)
     name = tree.xpath('//span[@class="title"]/text()')
     price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
+    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
+    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    
+    # for i in range(len(game_link)):
+    #     print(i+1,": ",game_link[i])
 
+    # for i in range(len(release_date)):
+    #     print(i+1,": ",release_date[i])
+    
     game_infomation = {
         'Rogue-lite_game': name,
-        'price': price
+        'price': price,
+        'link' : game_link,
+        'release_date': release_date
     }
     strip_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
 
     # for i in range(40):
     #     print(i + 1 , ": ", game_infomation['Rogue-lite_game'][i], game_infomation['price'][i].strip())
 
-    # write_to_csv('game.csv', strip_game_infomation)
+    write_to_csv('game.csv', strip_game_infomation)
+
+# def adventure():
+    # res    
 
 if __name__ == '__main__':
     rogue_lite()
