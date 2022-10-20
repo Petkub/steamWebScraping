@@ -1,4 +1,3 @@
-from platform import release
 import requests
 from lxml import html
 import csv
