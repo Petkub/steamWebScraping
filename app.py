@@ -106,7 +106,7 @@ def adventure():
     write_to_csv('csv_file/Adventure_game.csv', clean_game_infomation)
 
 def action():
-    res = requests.get('https://store.steampowered.com/search/?tags=1718&category1=998&os=win&supportedlang=english',
+    res = requests.get('https://store.steampowered.com/search/?tags=4106&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
@@ -124,7 +124,6 @@ def action():
 
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
-    remove_priceIsNone = {k: [v for v in value if v != ''] for k, value in clean_game_infomation.items()}
     write_to_csv('csv_file/Action_game.csv', clean_game_infomation)
 
 def MOBA():
