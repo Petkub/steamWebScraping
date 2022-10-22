@@ -147,8 +147,7 @@ def MOBA():
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     
     
-    # write_to_csv('csv_file/MOBA_game.csv', clean_game_infomation)
-    write_to_csv('csv_file/MOBA_game1.csv', clean_game_infomation)
+    write_to_csv('csv_file/MOBA_game.csv', clean_game_infomation)
 
 def MMO_RPG():
     res = requests.get('https://store.steampowered.com/search/?tags=1754&category1=998&os=win&supportedlang=english',
