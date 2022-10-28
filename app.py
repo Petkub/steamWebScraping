@@ -8,529 +8,574 @@ def write_to_csv(filename, data):
         writer.writerow(data.keys())
         writer.writerows(zip(*data.values()))
 
-def rogue_lite():
+def rogue_lite(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=3959&category1=998&os=win&supportedlang=english', 
         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.47'})
     # print(res.status_code)
 
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
-    
-    # for i in range(len(game_link)):
-    #     print(i+1,": ",game_link[i])
-
-    # for i in range(len(release_date)):
-    #     print(i+1,": ",release_date[i])
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
     
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Rogue-lite'] * len(name)
+        'game_type' : ['Rogue-lite'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
-
-    # for i in range(40):
-    #     print(i + 1 , ": ", game_infomation['Rogue-lite_game'][i], game_infomation['price'][i].strip())
-
     write_to_csv('csv_file/RogueLite_game.csv', clean_game_infomation)
 
-def rogue_like():
+def rogue_like(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1716&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Rogue-like'] * len(name)
-
+        'game_type' : ['Rogue-like'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     # print(clean_game_infomation)
     write_to_csv('csv_file/RogueLike_game.csv', clean_game_infomation)
 
-def souls_like():
+def souls_like(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=29482&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Souls-like'] * len(name)
-
+        'game_type' : ['Souls-like'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     # for v, k in clean_game_infomation.items():
     #     print(v, k)
     write_to_csv('csv_file/SoulsLike_game.csv', clean_game_infomation)
 
-def adventure():
+def adventure(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=21&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Adventure'] * len(name)
+        'game_type' : ['Adventure'] * len(name),
+        'image' : image
 
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Adventure_game.csv', clean_game_infomation)
 
-def action():
+def action(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=4106&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Action'] * len(name)
+        'game_type' : ['Action'] * len(name),
+        'image' : image
 
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Action_game.csv', clean_game_infomation)
 
-def MOBA():
+def MOBA(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1718&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
 
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['MOBA'] * len(name)
+        'game_type' : ['MOBA'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     
     
     write_to_csv('csv_file/MOBA_game.csv', clean_game_infomation)
 
-def MMO_RPG():
+def MMO_RPG(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1754&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['MMO_RPG'] * len(name)
+        'game_type' : ['MMO_RPG'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/MMO_RPG_game.csv', clean_game_infomation)
 
-def puzzle():
+def puzzle(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1664&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Puzzle'] * len(name)
+        'game_type' : ['Puzzle'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Puzzle_game.csv', clean_game_infomation)
 
-def tower_defense():
+def tower_defense(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1645&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Tower Defense'] * len(name)
+        'game_type' : ['Tower Defense'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Tower_Defense_game.csv', clean_game_infomation)
 
-def survival():
+def survival(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1662&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Survival'] * len(name)
+        'game_type' : ['Survival'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Survival_game.csv', clean_game_infomation)
 
-def simulator():
+def simulator(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=599%2C597&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Simulator'] * len(name)
+        'game_type' : ['Simulator'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Simulator_game.csv', clean_game_infomation)
 
-def horor():
+def horor(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1667&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Horor'] * len(name)
+        'game_type' : ['Horor'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Horor_game.csv', clean_game_infomation)
 
-def RTS():
+def RTS(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?sort_by=Reviews_DESC&tags=1676&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
+
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['RTS'] * len(name)
+        'game_type' : ['RTS'] * len(name),
+        'image' : image
     }
+    
+
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
+    
     write_to_csv('csv_file/RTS_game.csv', clean_game_infomation)
 
-def Hack_and_Slash():
+def Hack_and_Slash(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?sort_by=Reviews_DESC&tags=1646&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Hack and Slash'] * len(name)
+        'game_type' : ['Hack and Slash'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Hack_and_Slash_game.csv', clean_game_infomation)
 
-def fighting():
+def fighting(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?sort_by=Reviews_DESC&tags=1743&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Fighting'] * len(name)
+        'game_type' : ['Fighting'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Fighting_game.csv', clean_game_infomation)
 
-def sport():
+def sport(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=701&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Sport'] * len(name)
+        'game_type' : ['Sport'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Sport_game.csv', clean_game_infomation)
 
-def strategy():
+def strategy(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=9&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Strategy'] * len(name)
+        'game_type' : ['Strategy'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Strategy_game.csv', clean_game_infomation)
 
-def turn_based():
+def turn_based(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1677&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Turn Based'] * len(name)
+        'game_type' : ['Turn Based'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Turn_based_game.csv', clean_game_infomation)
 
-def racing():
+def racing(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?sort_by=Reviews_DESC&tags=699&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Racing'] * len(name)
+        'game_type' : ['Racing'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Racing_game.csv', clean_game_infomation)
 
-def arcade():
+def arcade(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?sort_by=Reviews_DESC&tags=1773&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Arcade'] * len(name)
+        'game_type' : ['Arcade'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Arcade_game.csv', clean_game_infomation)
 
-def dating():
+def dating(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?sort_by=Reviews_DESC&tags=9551&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Dating'] * len(name)
+        'game_type' : ['Dating'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Dating_game.csv', clean_game_infomation)
 
-def metroidvania():
+def metroidvania(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1628&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Metroidvania'] * len(name)
+        'game_type' : ['Metroidvania'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Metroidvania_game.csv', clean_game_infomation)
 
-def FPS():
+def FPS(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1663&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['FPS'] * len(name)
+        'game_type' : ['FPS'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/FPS_game.csv', clean_game_infomation)
 
-def card():
+def card(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1666&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     # print(res.status_code)
     tree = html.fromstring(html=res.text)
-    name = tree.xpath('//span[@class="title"]/text()')
-    price = tree.xpath("//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]")
-    game_link = tree.xpath('//a[@class="search_result_row ds_collapse_flag "]/@href')
-    release_date = tree.xpath('//div[@class="col search_released responsive_secondrow"]/text()')
+    name = tree.xpath(n)
+    price = tree.xpath(p)
+    game_link = tree.xpath(link)
+    release_date = tree.xpath(re_date)
+    image = tree.xpath(img)
 
     game_infomation = {
         'game': name,
         'price': price,
         'link' : game_link,
         'release_date': release_date,
-        'game_type' : ['Card'] * len(name)
+        'game_type' : ['Card'] * len(name),
+        'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Card_game.csv', clean_game_infomation)
 
 if __name__ == '__main__':
-    rogue_lite()
-    adventure()
-    souls_like()
-    action()
-    rogue_like()
-    MOBA()
-    MMO_RPG()
-    puzzle()
-    tower_defense()
-    survival()
-    simulator()
-    horor()
-    RTS()
-    Hack_and_Slash()
-    fighting()
-    sport()
-    strategy()
-    turn_based()
-    racing()
-    arcade()
-    dating()
-    metroidvania()
-    FPS()
-    card()
+    name = '//span[@class="title"]/text()'
+    price = "//div[@class = 'col search_price  responsive_secondrow']/text() | //div[@class = 'col search_price discounted responsive_secondrow']/text()[2]"
+    game_link = '//a[@class="search_result_row ds_collapse_flag "]/@href'
+    release_date = '//div[@class="col search_released responsive_secondrow"]/text()'
+    image = '//div[@class = "col search_capsule"]/img/@src'
+    rogue_lite(name, price, game_link, release_date, image)
+    rogue_like(name, price, game_link, release_date, image)
+    dating(name, price, game_link, release_date, image)
+    metroidvania(name, price, game_link, release_date, image)
+    FPS(name, price, game_link, release_date, image)
+    card(name, price, game_link, release_date, image)
+    MOBA(name, price, game_link, release_date, image)
+    adventure(name, price, game_link, release_date, image)
+    survival(name, price, game_link, release_date, image)
+    strategy(name, price, game_link, release_date, image)
+    action(name, price, game_link, release_date, image)
+    simulator(name, price, game_link, release_date, image)
+    MMO_RPG(name, price, game_link, release_date, image)
+    Hack_and_Slash(name, price, game_link, release_date, image)
+    fighting(name, price, game_link, release_date, image)
+    puzzle(name, price, game_link, release_date, image)
+    racing(name, price, game_link, release_date, image)
+    turn_based(name, price, game_link, release_date, image)
+    tower_defense(name, price, game_link, release_date, image)
+    arcade(name, price, game_link, release_date, image)
+    souls_like(name, price, game_link, release_date, image)
+    horor(name, price, game_link, release_date, image)
+    sport(name, price, game_link, release_date, image)
+    RTS(name, price, game_link, release_date, image)
