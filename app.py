@@ -1,12 +1,18 @@
 import requests
 from lxml import html
 import csv
+import re
 
 def write_to_csv(filename, data):
     with open(filename, 'w', encoding ='utf-8') as f:
         writer = csv.writer(f)
         writer.writerow(data.keys())
         writer.writerows(zip(*data.values()))
+
+def convert_img_link(image):
+    for i in range(len(image)):
+        image[i] = re.sub(r"(capsule_sm_*[0-9]*[a_-z]*[0-9]*.)", "header.", image[i])
+    return image
 
 def rogue_lite(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=3959&category1=998&os=win&supportedlang=english', 
@@ -20,6 +26,8 @@ def rogue_lite(n, p, link, re_date, img):
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
     
+    convert_img_link(image)
+
     game_infomation = {
         'game': name,
         'price': price,
@@ -50,8 +58,9 @@ def rogue_like(n, p, link, re_date, img):
         'game_type' : ['Rogue-like'] * len(name),
         'image' : image
     }
+    convert_img_link(image)
+
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
-    # print(clean_game_infomation)
     write_to_csv('csv_file/RogueLike_game.csv', clean_game_infomation)
 
 def souls_like(n, p, link, re_date, img):
@@ -64,6 +73,8 @@ def souls_like(n, p, link, re_date, img):
     game_link = tree.xpath(link)
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
+    
+    convert_img_link(image)
 
     game_infomation = {
         'game': name,
@@ -74,8 +85,6 @@ def souls_like(n, p, link, re_date, img):
         'image' : image
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
-    # for v, k in clean_game_infomation.items():
-    #     print(v, k)
     write_to_csv('csv_file/SoulsLike_game.csv', clean_game_infomation)
 
 def adventure(n, p, link, re_date, img):
@@ -88,6 +97,8 @@ def adventure(n, p, link, re_date, img):
     game_link = tree.xpath(link)
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
+    
+    convert_img_link(image)
 
     game_infomation = {
         'game': name,
@@ -112,6 +123,8 @@ def action(n, p, link, re_date, img):
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
 
+    convert_img_link(image)
+
     game_infomation = {
         'game': name,
         'price': price,
@@ -119,7 +132,6 @@ def action(n, p, link, re_date, img):
         'release_date': release_date,
         'game_type' : ['Action'] * len(name),
         'image' : image
-
     }
     clean_game_infomation = {k: [v.strip() for v in value] for k, value in game_infomation.items()}
     write_to_csv('csv_file/Action_game.csv', clean_game_infomation)
@@ -135,6 +147,8 @@ def MOBA(n, p, link, re_date, img):
     game_link = tree.xpath(link)
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
+
+    convert_img_link(image)
 
     game_infomation = {
         'game': name,
@@ -160,6 +174,8 @@ def MMO_RPG(n, p, link, re_date, img):
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
 
+    convert_img_link(image)
+
     game_infomation = {
         'game': name,
         'price': price,
@@ -181,6 +197,8 @@ def puzzle(n, p, link, re_date, img):
     game_link = tree.xpath(link)
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
+
+    convert_img_link(image)
 
     game_infomation = {
         'game': name,
@@ -204,6 +222,8 @@ def tower_defense(n, p, link, re_date, img):
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
 
+    convert_img_link(image)
+
     game_infomation = {
         'game': name,
         'price': price,
@@ -225,6 +245,8 @@ def survival(n, p, link, re_date, img):
     game_link = tree.xpath(link)
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
+
+    convert_img_link(image)
 
     game_infomation = {
         'game': name,
@@ -248,6 +270,8 @@ def simulator(n, p, link, re_date, img):
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
 
+    convert_img_link(image)
+
     game_infomation = {
         'game': name,
         'price': price,
@@ -269,6 +293,8 @@ def horor(n, p, link, re_date, img):
     game_link = tree.xpath(link)
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
+
+    convert_img_link(image)
 
     game_infomation = {
         'game': name,
@@ -292,6 +318,7 @@ def RTS(n, p, link, re_date, img):
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
 
+    convert_img_link(image)
 
     game_infomation = {
         'game': name,
@@ -318,6 +345,8 @@ def Hack_and_Slash(n, p, link, re_date, img):
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
 
+    convert_img_link(image)
+
     game_infomation = {
         'game': name,
         'price': price,
@@ -339,6 +368,8 @@ def fighting(n, p, link, re_date, img):
     game_link = tree.xpath(link)
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
+
+    convert_img_link(image)
 
     game_infomation = {
         'game': name,
@@ -362,6 +393,8 @@ def sport(n, p, link, re_date, img):
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
 
+    convert_img_link(image)
+
     game_infomation = {
         'game': name,
         'price': price,
@@ -383,6 +416,8 @@ def strategy(n, p, link, re_date, img):
     game_link = tree.xpath(link)
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
+
+    convert_img_link(image)
 
     game_infomation = {
         'game': name,
@@ -406,6 +441,8 @@ def turn_based(n, p, link, re_date, img):
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
 
+    convert_img_link(image)
+
     game_infomation = {
         'game': name,
         'price': price,
@@ -427,6 +464,8 @@ def racing(n, p, link, re_date, img):
     game_link = tree.xpath(link)
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
+
+    convert_img_link(image)
 
     game_infomation = {
         'game': name,
@@ -494,6 +533,8 @@ def metroidvania(n, p, link, re_date, img):
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
 
+    convert_img_link(image)
+
     game_infomation = {
         'game': name,
         'price': price,
@@ -516,6 +557,8 @@ def FPS(n, p, link, re_date, img):
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
 
+    convert_img_link(image)
+
     game_infomation = {
         'game': name,
         'price': price,
@@ -537,6 +580,8 @@ def card(n, p, link, re_date, img):
     game_link = tree.xpath(link)
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
+
+    convert_img_link(image)
 
     game_infomation = {
         'game': name,
