@@ -16,7 +16,7 @@ def re_img_link(image):
 
 def re_price(price):
     for i in range(len(price)):
-            price[i] = re.sub(r"[\r \n ฿]", "", price[i])
+            price[i] = re.sub(r"[\r \n ฿ ,]", "", price[i])
             if(price[i] == 'Free' or price[i] == 'FreeToPlay' or price[i] == 'FreetoPlay'):
                 price[i] = 0
     return price
