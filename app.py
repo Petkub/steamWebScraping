@@ -28,7 +28,7 @@ def scraping(res, n, p, link, re_date, img, category):
     game_link = tree.xpath(link)
     release_date = tree.xpath(re_date)
     image = tree.xpath(img)
-        
+    
     re_img_link(image)
     re_price(price)
 
@@ -42,13 +42,11 @@ def scraping(res, n, p, link, re_date, img, category):
     }
     write_to_csv('csv_file/' + category + '_game.csv', game_infomation)
     
-
 def rogue_lite(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=3959&category1=998&os=win&supportedlang=english', 
         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 Edg/106.0.1370.47'})
     scraping(res, n, p, link, re_date, img, 'Rogue-lite')
 
-    
 def rogue_like(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1716&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
@@ -58,7 +56,6 @@ def souls_like(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=29482&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     scraping(res, n, p, link, re_date, img, 'Souls-like')
-
 
 def adventure(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=21&category1=998&os=win&supportedlang=english',
