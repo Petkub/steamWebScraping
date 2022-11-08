@@ -13,7 +13,7 @@ def merge_csv():
         df = pd.read_csv(filename, index_col=None, header=0)
         li.append(df)
     frame = pd.concat(li, axis=0, ignore_index=True)
-    frame.to_csv('csv_file/gameList.csv', index=False)
+    frame.to_csv('gameList/gameList.csv', index=False)
 
 def write_to_csv(filename, data):
     with open(filename, 'w', encoding ='utf-8') as f:
