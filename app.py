@@ -2,6 +2,18 @@ import requests
 from lxml import html
 import csv
 import re
+import glob
+import pandas as pd
+
+def merge_csv():
+    path = r'csv_file'
+    all_files = glob.glob(path + "/*.csv")
+    li = []
+    for filename in all_files:
+        df = pd.read_csv(filename, index_col=None, header=0)
+        li.append(df)
+    frame = pd.concat(li, axis=0, ignore_index=True)
+    frame.to_csv('csv_file/gameList.csv', index=False)
 
 def write_to_csv(filename, data):
     with open(filename, 'w', encoding ='utf-8') as f:
@@ -75,7 +87,7 @@ def MOBA(n, p, link, re_date, img):
 def MMO_RPG(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1754&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
-    scraping(res, n, p, link, re_date, img, 'MMO_RPG')
+    scraping(res, n, p, link, re_date, img, 'MMORPG')
 
 def puzzle(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1664&category1=998&os=win&supportedlang=english',
@@ -168,27 +180,28 @@ if __name__ == '__main__':
     game_link = '//a[@class="search_result_row ds_collapse_flag "]/@href'
     release_date = '//div[@class="col search_released responsive_secondrow"]/text()'
     image = '//div[@class = "col search_capsule"]/img/@src'
-    rogue_lite(name, price, game_link, release_date, image)
-    rogue_like(name, price, game_link, release_date, image)
-    dating(name, price, game_link, release_date, image)
-    metroidvania(name, price, game_link, release_date, image)
-    FPS(name, price, game_link, release_date, image)
-    card(name, price, game_link, release_date, image)
-    MOBA(name, price, game_link, release_date, image)
     adventure(name, price, game_link, release_date, image)
-    survival(name, price, game_link, release_date, image)
-    strategy(name, price, game_link, release_date, image)
-    action(name, price, game_link, release_date, image)
-    simulator(name, price, game_link, release_date, image)
+    arcade(name, price, game_link, release_date, image)
+    FPS(name, price, game_link, release_date, image)
+    horor(name, price, game_link, release_date, image)
     MMO_RPG(name, price, game_link, release_date, image)
-    Hack_and_Slash(name, price, game_link, release_date, image)
-    fighting(name, price, game_link, release_date, image)
+    MOBA(name, price, game_link, release_date, image)
     puzzle(name, price, game_link, release_date, image)
     racing(name, price, game_link, release_date, image)
-    turn_based(name, price, game_link, release_date, image)
-    tower_defense(name, price, game_link, release_date, image)
-    arcade(name, price, game_link, release_date, image)
-    souls_like(name, price, game_link, release_date, image)
-    horor(name, price, game_link, release_date, image)
     sport(name, price, game_link, release_date, image)
-    RTS(name, price, game_link, release_date, image)
+    survival(name, price, game_link, release_date, image)
+    # rogue_lite(name, price, game_link, release_date, image)
+    # rogue_like(name, price, game_link, release_date, image)
+    # dating(name, price, game_link, release_date, image)
+    # metroidvania(name, price, game_link, release_date, image)
+    # card(name, price, game_link, release_date, image)
+    # strategy(name, price, game_link, release_date, image)
+    # action(name, price, game_link, release_date, image)
+    # simulator(name, price, game_link, release_date, image)
+    # Hack_and_Slash(name, price, game_link, release_date, image)
+    # fighting(name, price, game_link, release_date, image)
+    # turn_based(name, price, game_link, release_date, image)
+    # tower_defense(name, price, game_link, release_date, image)
+    # souls_like(name, price, game_link, release_date, image)
+    # RTS(name, price, game_link, release_date, image)
+    merge_csv()
