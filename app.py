@@ -109,10 +109,10 @@ def simulator(n, p, link, re_date, img):
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
     scraping(res, n, p, link, re_date, img, 'Simulator')
 
-def horor(n, p, link, re_date, img):
+def Horror(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?tags=1667&category1=998&os=win&supportedlang=english',
                         headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/'})
-    scraping(res, n, p, link, re_date, img, 'Horor')
+    scraping(res, n, p, link, re_date, img, 'Horror')
 
 def RTS(n, p, link, re_date, img):
     res = requests.get('https://store.steampowered.com/search/?sort_by=Reviews_DESC&tags=1676&category1=998&os=win&supportedlang=english',
@@ -183,7 +183,7 @@ if __name__ == '__main__':
     adventure(name, price, game_link, release_date, image)
     arcade(name, price, game_link, release_date, image)
     FPS(name, price, game_link, release_date, image)
-    horor(name, price, game_link, release_date, image)
+    Horror(name, price, game_link, release_date, image)
     MMO_RPG(name, price, game_link, release_date, image)
     MOBA(name, price, game_link, release_date, image)
     puzzle(name, price, game_link, release_date, image)
